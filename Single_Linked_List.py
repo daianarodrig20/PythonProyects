@@ -39,6 +39,16 @@ class Single_Linked_List:
             self.cola = nuevo_nodo # A la vez la cola para a valer el nuevo nodo ya que pasa a ser el ultimo elemento de mi lista
         self.tamanio += 1 # Le sumo 1 al tamaño
 
+    # Insertar por adelante
+    def insertar_adelante(self, valor):
+        nuevo_nodo = self._Nodo(valor)
+        if self.cabeza == None and self.cola == None:
+            self.cabeza = nuevo_nodo
+            self.cola = nuevo_nodo
+        else:
+            nuevo_nodo.nodo_siguiente = self.cabeza
+            self.cabeza = nuevo_nodo
+        self.tamanio += 1
 
 
 s = Single_Linked_List()
