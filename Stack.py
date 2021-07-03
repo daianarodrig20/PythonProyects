@@ -4,76 +4,60 @@
 from dataclasses import dataclass
 from typing import Any
 
-class Pila:
+class Pila():
     @dataclass
-    class _Nodo:
-        dato: Any
-        sig: '_Nodo'
+    class _Node:
+        value = Any
+        siguiente = _Node
 
-    __slots__ = ['_tope', 'tamanio'] # Puntero al tope
+    __slots__=[_inicio]
 
-    # Inicializo mi pila vacia o con una iterable, osea, le puedo pasar una secuencia de elementos
-    # Tambien la inicializo en 0
     def __init__(self, iterable = None):
-        self._tope = None # El tope va a estar vacio
-        tamanio = 0
+        self._inicio = None
         if iterable is not None:
-            for dato in iterable:
-                self.apilar(dato)
+            for value in iterable:
+                self.apilar(value)
 
-    # Booleano: Retorna true si mi pila esta vacia en caso contrario False
-    def es_vacia(self):
-        return self.tamanio == 0
-        ## Tambien podria ser:
-        # return self._tope is None
-
-    # Vacio mi pila
-    def vaciar(self):
-        self._tope = None
-        self.tamanio = 0
+    def vacia(self):
+        return self._inicio is None
 
     @property
     def tope(self):
-        assert not self.es_vacia(), 'No se puede operar en una pila vacia'
-        return self._tope.dato
+        assert not self.vacia(), 'Pila vacia'
+        return self._inicio
 
-    def apilar(self, dato):
-        self._tope = Pila._Nodo(dato, self._tope)
+    def apilar(self, value):
+        self._inicio=Pila._Node(value, self._inicio)
 
     def desapilar(self):
-        assert not self.es_vacia(), 'La pila se encuentra vacia'
-        dato = self._tope.dato
-        self._tope = self._tope.sig
-        return dato
+        assert not self.vacia(), 'Pila vacia'
+        value = self._inicio.value
+        self._inicio = self._inicio.siguiente
+        return value
+
+    def borrar(self):
+        self._inicio = None
 
     def copiar(self):
-        nueva_pila = Pila()
-        if not self.es_vacia():
-            nodo = self._tope
-            nuevo_nodo = Pila._Nodo(nodo.dato, None)
-            nueva_pila._tope = nuevo_nodo
-            while nodo.sig is not None:
-                nodo = nodo.sig
-                nuevo_nodo.sig = Pila._Nodo(nodo.dato, None)
-                nuevo_nodo = nuevo_nodo.sig
-        return nuevo_nodo
+        new_Pila = Pila()
+        new_Pila._inicio = self._inicio
+        return new_Pila
 
-    # comparo dos pilas
-    def __iguales__(self, otra):
-        a = self._tope
-        b = otra._tope
+    def __len__(self):
+        n = 0
+        node = self._inicio
+        while node is not None:
+            node = node.siguiente
+            n += 1
+        return n
 
-        while a is not None and b is not None:
-            if a.dato != b.dato:
+    def __eq__(self, other):
+        x = self._inicio
+        y = other._inicio
+        while x is not None and y is not None:
+            if x.value != y.value:
                 return False
-            a = a.sig
-            b = b.sig
-        return a is None and b is None
+            x = x.siguiente
+            y = y.siguiente
+        return x is None and y is None
 
-    def __repr__(self):
-        datos = []
-        nodo = self._tope
-        while nodo is not None:
-            datos.insert(0, nodo.dato)
-            nodo = nodo.sig
-        return ' Pila([' + ', '.join(repr(x) for x in datos) + '])'
