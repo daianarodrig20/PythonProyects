@@ -50,6 +50,19 @@ class Single_Linked_List:
             self.cabeza = nuevo_nodo
         self.tamanio += 1
 
+    
+    # Eliminar elemento
+    def vaciar(self):
+        if self.tamanio == 0:
+            self.cabeza = None
+            self.cola = None
+        else:
+            nodo_eliminado = self.cabeza
+            self.cabeza = nodo_eliminado.nodo_siguiente
+            nodo_eliminado.nodo_siguiente = None
+            self.tamanio -= 1
+            return print(nodo_eliminado.valor)
+
 
 s = Single_Linked_List()
 s.append('P')
