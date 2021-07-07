@@ -27,6 +27,9 @@ class Set():
             for value in iterable:
                 self.add(value)
 
+    def clear(self):
+        self._first = None
+
     def is_empty(): # Creo una funcion que retorna True o False si el conjunto esta vacio
         return self._first == None # Si el primer elemento es None retorna True
 
