@@ -64,7 +64,7 @@ class Set():
         assert not self.is_empty(), ' No se puede operar en un conjunto vacio' 
         if self.belongs()
 
-    def __repr__():
+    def __repr__(self):
         conjunto = [] # Creo una lista llamada conjunto para mostrar mi conjunto por pantalla
         aux = self._first # Creo un auxiliar para recorrer mi conjunto
         while aux is not None:
