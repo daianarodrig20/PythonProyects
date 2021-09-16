@@ -1,1 +1,1 @@
-Proyectos que fui haciendo en python3 para no ir olvidando conocimientos
+Proyectos que voy haciendo en python3
